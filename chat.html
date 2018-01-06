@@ -10,6 +10,20 @@
 
     <script>
       let socket = new WebSocket('ws://localhost:8080')
+
+
+      setTimeout(() => {
+        socket.send(JSON.stringify({
+          event: 'joined',
+          data: {
+            user: {
+              id: 1,
+              name: 'Elijah'
+            }
+          }
+        }))
+      }, 2000)
+
     </script>
   </body>
 </html>
