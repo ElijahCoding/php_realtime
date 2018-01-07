@@ -3,11 +3,15 @@
 namespace App;
 
 use Exception;
+use App\ChatEventsTrait;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 
 class Chat implements MessageComponentInterface
 {
+  use ChatEventsTrait;
+
+
   protected $clients;
 
   protected $users;
@@ -26,7 +30,9 @@ class Chat implements MessageComponentInterface
     // var_dump($message); debug with Timeout problem
     $payload = json_decode($message);
 
-    $this->users[$connection->resourceId] = $payload->data->user;
+    if (method_exists($this, $method = 'handle' . ucfirst($payload->event))) {
+      $this->{$method}($connection, $payload);
+    }
 
   }
 
