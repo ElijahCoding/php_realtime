@@ -57,6 +57,8 @@
 
     <script src="https://unpkg.com/vue"></script>
     <script>
+      let bus = new Vue()
+
       let socket = new WebSocket('ws://localhost:8080')
 
       let Message = {
@@ -88,16 +90,46 @@
       }
 
       let People = {
+        data() {
+          return {
+            users: []
+          }
+        },
+
         template: `
           <div class="chat__people">
-            People online: 1,
+            People online: {{users.length}},
             <ul>
-              <li>
-              Alex
+              <li v-for="user in users">
+                {{user.name}}
               </li>
             </ul>
+
+
           </div>
-        `
+        `,
+
+        mounted() {
+          bus.$on('joined', (payload) => {
+            this.addUser(payload.user)
+          })
+
+          bus.$on('left', (payload) => {
+            this.removeUser(payload.user)
+          })
+        },
+
+        methods: {
+          addUser(user) {
+            this.users.unshift(user)
+          },
+
+          removeUser(user) {
+            this.users = this.users.filter((u) => {
+              return u.id !== user.id
+            })
+          }
+        }
       }
 
       let Chat = {
@@ -140,8 +172,26 @@
             if (!this.name) {
               return;
             }
-             
+
+            socket.send(JSON.stringify({
+              event: 'joined',
+              data: {
+                  user: {
+                      id: Date.now(),
+                      name: this.name
+                  }
+              }
+           }))
+
             this.joined = true
+          }
+        },
+
+        mounted() {
+          socket.onmessage = (e) => {
+            let data = JSON.parse(e.data)
+
+            bus.$emit(data.event, data.data)
           }
         }
       }
