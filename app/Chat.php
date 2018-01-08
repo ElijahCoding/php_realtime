@@ -3,11 +3,13 @@
 namespace App;
 
 use Exception;
+use App\Events\UserLeft;
 use App\ChatEventsTrait;
+use App\Socket\SocketAbstract;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 
-class Chat implements MessageComponentInterface
+class Chat extends SocketAbstract implements MessageComponentInterface
 {
   use ChatEventsTrait;
 
@@ -38,14 +40,19 @@ class Chat implements MessageComponentInterface
 
   function onClose(ConnectionInterface $connection)
   {
-    foreach ($this->clients as $client) {
-      $client->send(json_encode([
-        'event' => 'left',
-        'data' => [
-          'user' => $this->users[$connection->resourceId]
-        ]
-      ]));
-    }
+    // foreach ($this->clients as $client) {
+    //   $client->send(json_encode([
+    //     'event' => 'left',
+    //     'data' => [
+    //       'user' => $this->users[$connection->resourceId]
+    //     ]
+    //   ]));
+    // }
+
+    $user = $this->users[$connection->resourceId];
+    // broadcast
+    $this->broadcast(new UserLeft($user))->toAll();
+
     unset($this->clients[$connection->resourceId]);
   }
 
