@@ -7,6 +7,14 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Chat' => $baseDir . '/app/Chat.php',
+    'App\\ChatEventsTrait' => $baseDir . '/app/ChatEventsTrait.php',
+    'App\\Events\\Event' => $baseDir . '/app/Events/Event.php',
+    'App\\Events\\Message' => $baseDir . '/app/Events/Message.php',
+    'App\\Events\\UserJoined' => $baseDir . '/app/Events/UserJoined.php',
+    'App\\Events\\UserLeft' => $baseDir . '/app/Events/UserLeft.php',
+    'App\\Events\\Users' => $baseDir . '/app/Events/Users.php',
+    'App\\Socket\\Broadcast' => $baseDir . '/app/Socket/Broadcast.php',
+    'App\\Socket\\SocketAbstract' => $baseDir . '/app/Socket/SocketAbstract.php',
     'Evenement\\EventEmitter' => $vendorDir . '/evenement/evenement/src/Evenement/EventEmitter.php',
     'Evenement\\EventEmitterInterface' => $vendorDir . '/evenement/evenement/src/Evenement/EventEmitterInterface.php',
     'Evenement\\EventEmitterTrait' => $vendorDir . '/evenement/evenement/src/Evenement/EventEmitterTrait.php',

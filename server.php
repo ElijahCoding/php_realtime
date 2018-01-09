@@ -8,12 +8,12 @@ use Ratchet\WebSocket\WsServer;
 require_once 'vendor/autoload.php';
 
 $server = IoServer::factory(
-  new HttpServer(
-    new WsServer(
-      new Chat()
-      )
-  ),
-  8080
+    new HttpServer(
+        new WsServer(
+            new Chat()
+        )
+    ),
+    8080
 );
 
 $server->run();

@@ -121,6 +121,14 @@ class ComposerStaticInitac38114374a977548f89422538d8701c
 
     public static $classMap = array (
         'App\\Chat' => __DIR__ . '/../..' . '/app/Chat.php',
+        'App\\ChatEventsTrait' => __DIR__ . '/../..' . '/app/ChatEventsTrait.php',
+        'App\\Events\\Event' => __DIR__ . '/../..' . '/app/Events/Event.php',
+        'App\\Events\\Message' => __DIR__ . '/../..' . '/app/Events/Message.php',
+        'App\\Events\\UserJoined' => __DIR__ . '/../..' . '/app/Events/UserJoined.php',
+        'App\\Events\\UserLeft' => __DIR__ . '/../..' . '/app/Events/UserLeft.php',
+        'App\\Events\\Users' => __DIR__ . '/../..' . '/app/Events/Users.php',
+        'App\\Socket\\Broadcast' => __DIR__ . '/../..' . '/app/Socket/Broadcast.php',
+        'App\\Socket\\SocketAbstract' => __DIR__ . '/../..' . '/app/Socket/SocketAbstract.php',
         'Evenement\\EventEmitter' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitter.php',
         'Evenement\\EventEmitterInterface' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitterInterface.php',
         'Evenement\\EventEmitterTrait' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitterTrait.php',
